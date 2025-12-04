@@ -17,10 +17,15 @@ import 'data_store.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
-  // Initialize Firebase
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  // Initialize Firebase with error handling for online compilers like FlutLab
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    debugPrint('Firebase initialization error: $e');
+    debugPrint('App will continue without Firebase (useful for online compilers)');
+  }
   
   // Load all persistent data on app startup
   await DataStore.loadRegisteredUsers();
