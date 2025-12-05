@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'data_store.dart';
 
@@ -138,15 +140,24 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: const Text('Profile updated successfully!'),
-                          backgroundColor: Colors.green,
-                          duration: const Duration(seconds: 2),
-                        ),
-                      );
-                      Navigator.pop(context);
+                    onPressed: () async {
+                      // Capture context before async operation
+                      final scaffoldContext = context;
+                      
+                      // Update the username in DataStore
+                      DataStore.currentUserUsername = nameController.text;
+                      await DataStore.saveCurrentUserUsername();
+                      
+                      if (mounted) {
+                        ScaffoldMessenger.of(scaffoldContext).showSnackBar(
+                          SnackBar(
+                            content: const Text('Profile updated successfully!'),
+                            backgroundColor: Colors.green,
+                            duration: const Duration(seconds: 2),
+                          ),
+                        );
+                        Navigator.pop(scaffoldContext);
+                      }
                     },
                     child: const Text(
                       'Save Changes',

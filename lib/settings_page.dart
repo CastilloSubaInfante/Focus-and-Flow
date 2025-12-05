@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'data_store.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -35,39 +34,6 @@ class _SettingsPageState extends State<SettingsPage> {
           child: Column(
             children: [
               const SizedBox(height: 12),
-              // User Profile Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextField(
-                      controller: TextEditingController(text: DataStore.currentUserUsername ?? 'Unknown'),
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        label: const Text('Full Name'),
-                        prefixIcon: const Icon(Icons.person),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                        fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
-                        filled: true,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    TextField(
-                      controller: TextEditingController(text: DataStore.currentUserEmail ?? 'Unknown'),
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        label: const Text('Email Address'),
-                        prefixIcon: const Icon(Icons.email),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
-                        fillColor: isDark ? Colors.grey.shade800 : Colors.grey.shade100,
-                        filled: true,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
               // Notifications Settings
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
